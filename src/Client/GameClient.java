@@ -1,4 +1,6 @@
-package sample;
+package Client;
+
+import Controller.BoardController;
 
 import java.io.*;
 import java.net.*;
@@ -18,6 +20,11 @@ public class GameClient {
     public void sendMove(String pieceId, int fromCol, int fromRow, int toCol, int toRow) {
         String msg = "MOVE;" + pieceId + ";" + fromCol + ";" + fromRow + ";" + toCol + ";" + toRow;
         out.println(msg);
+    }
+
+    // Gửi đầu hàng
+    public void sendResign(String side) {
+        out.println("RESIGN;" + side);
     }
 
     // Lắng nghe server (chạy trong thread riêng)
@@ -42,6 +49,11 @@ public class GameClient {
                         String side = msg.substring("ASSIGN;".length());
                         javafx.application.Platform.runLater(() -> {
                             boardController.setPlayerSide(side);
+                        });
+                    } else if (msg.startsWith("RESIGN;")) {
+                        String side = msg.substring("RESIGN;".length()).trim();
+                        javafx.application.Platform.runLater(() -> {
+                            boardController.onResign(side);
                         });
                     }
                 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.WaitingRoomController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: linear-gradient(to bottom, #eaf1f8, #ffffff);">
+
+    <!-- Padding ngoài -->
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Thẻ chứa nội dung chính -->
+    <VBox spacing="20" prefWidth="420"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 15;
+                 -fx-padding: 30;
+                 -fx-border-color: #d6dee6;
+                 -fx-border-radius: 15;
+                 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+
+        <!-- Header -->
+        <Label text="Phòng đã được tạo!"
+               style="-fx-font-size: 22px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #2c3e50;
+                      -fx-padding: 0 0 10 0;"/>
+
+        <!-- Thông tin phòng -->
+        <VBox spacing="12">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Tên phòng:" minWidth="110"
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="roomNameLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            </HBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Chủ phòng:" minWidth="110"
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="hostLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            </HBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Mật khẩu:" minWidth="110"
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                <Label fx:id="passwordLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Thông báo trạng thái -->
+        <Label fx:id="statusLabel"
+               text="Đang chờ người tham gia..."
+               style="-fx-background-color: #e8f8f5;
+                      -fx-text-fill: #16a085;
+                      -fx-padding: 8 12;
+                      -fx-background-radius: 8;
+                      -fx-font-size: 13px;"/>
+
+        <!-- Nút hành động -->
+        <Button fx:id="cancelButton"
+                text="❌ Huỷ phòng"
+                onAction="#handleCancel"
+                maxWidth="Infinity"
+                style="-fx-background-color: linear-gradient(to right, #e74c3c, #c0392b);
+                       -fx-text-fill: white;
+                       -fx-font-size: 14px;
+                       -fx-font-weight: bold;
+                       -fx-background-radius: 10;
+                       -fx-padding: 10 15;
+                       -fx-cursor: hand;"/>
+    </VBox>
+</VBox>

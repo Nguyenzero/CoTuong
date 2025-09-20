@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controller.BoardController">
+    <center>
+        <Pane fx:id="chessBoard"
+              prefWidth="600" prefHeight="660"
+              style="-fx-background-color: #f6e8c3;"/>
+    </center>
+    <bottom>
+        <HBox spacing="40" alignment="CENTER" style="-fx-padding: 15;">
+            <Button fx:id="resignBtn" text="Đầu hàng"
+                    style="-fx-background-color: #ff6b6b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 20;"/>
+            <Button fx:id="exitBtn" text="Thoát"
+                    style="-fx-background-color: #4dabf7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 20;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

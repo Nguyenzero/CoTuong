@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.CreateRoomController"
+            prefWidth="450" prefHeight="300"
+            style="-fx-background-color: linear-gradient(to bottom, #f0f4f7, #d9e2ec);">
+
+    <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+        <!-- Tiêu đề -->
+        <Label text="Tạo Phòng Chơi"
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2d3436;"/>
+
+        <!-- Card chứa form -->
+        <VBox spacing="15" alignment="CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);">
+
+            <TextField fx:id="roomNameField" promptText="Nhập tên phòng" maxWidth="250"
+                       style="-fx-background-radius: 8; -fx-padding: 8;"/>
+
+            <PasswordField fx:id="passwordField" promptText="Mật khẩu (có thể bỏ trống)" maxWidth="250"
+                           style="-fx-background-radius: 8; -fx-padding: 8;"/>
+
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="Tạo phòng" onAction="#handleCreateRoom"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 8 20;"/>
+
+                <Button text="Hủy" onAction="#handleCancel"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 8 20;"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" textFill="red" style="-fx-font-size: 12px;"/>
+
+        </VBox>
+    </VBox>
+</AnchorPane>

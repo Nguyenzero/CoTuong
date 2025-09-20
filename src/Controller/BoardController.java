@@ -1,6 +1,10 @@
-package sample;
+package Controller;
 
+import Client.GameClient;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.Group;
@@ -9,6 +13,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +22,12 @@ import java.util.Map;
 public class BoardController {
     @FXML
     private Pane chessBoard;
+    @FXML
+    private Button resignBtn;
+
+    @FXML private Button exitBtn;
+
+    private String currentUser;// người chơi hiện tại
 
     private final Group boardLayer = new Group();
     private final Group piecesLayer = new Group();
@@ -68,20 +80,72 @@ public class BoardController {
         }
 
         chessBoard.getChildren().addAll(boardLayer, piecesLayer, hudLayer);
-        // NEW: init HUD labels
         hudLayer.getChildren().addAll(topSideLabel, bottomSideLabel);
+
         topSideLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
         bottomSideLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        hudLayer.setVisible(false);
+        hudLayer.setManaged(false);
+
+        // resign
+        if (resignBtn != null) {
+            resignBtn.setOnAction(e -> {
+                if (mySide != null && !gameOver) {
+                    client.sendResign(mySide == Side.RED ? "RED" : "BLACK");
+                }
+            });
+            updateButtons();
+        }
+
+        // exit
+        if (exitBtn != null) {
+            exitBtn.setOnAction(e -> handleExit());
+        }
 
         setupInitialBoard();
-
-        // Board click handler (snap to nearest intersection)
         chessBoard.setOnMouseClicked(this::handleBoardClick);
 
-        // Relayout on resize
         chessBoard.widthProperty().addListener((o, a, b) -> layoutAll());
         chessBoard.heightProperty().addListener((o, a, b) -> layoutAll());
         javafx.application.Platform.runLater(this::layoutAll);
+    }
+
+    private void handleExit() {
+        if (!gameOver && mySide != null) {
+            // Nếu thoát giữa chừng -> coi như đầu hàng
+            client.sendResign(mySide == Side.RED ? "RED" : "BLACK");
+            gameOver = true;
+        }
+        backToHome(currentUser); // ✅ chỉ truyền username
+    }
+
+    private void backToHome(String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Home.fxml"));
+            Parent root = loader.load();
+
+            HomeController homeController = loader.getController();
+            if (username != null) {
+                homeController.setCurrentUser(username);  // ✅ giữ nguyên tài khoản đăng nhập
+                homeController.loadStats(username);
+            }
+
+            Stage stage = new Stage();
+            stage.setTitle("Trang chủ");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage currentStage = (Stage) exitBtn.getScene().getWindow();
+            currentStage.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Nhận username từ Home khi mở bàn cờ
+    public void setCurrentUser(String username) {
+        this.currentUser = username;
     }
 
     // Called by GameClient when server assigns a side
@@ -91,7 +155,19 @@ public class BoardController {
         this.flipY = (this.mySide == Side.BLACK);
         updateSideLabels();
         layoutAll();
+        updateButtons();
         System.out.println("🎮 You are " + this.mySide);
+    }
+
+    // Xử lý khi có thông báo đầu hàng từ server
+    public void onResign(String sideStr) {
+        if (gameOver) return;
+        Side resigned = "RED".equalsIgnoreCase(sideStr) ? Side.RED : Side.BLACK;
+        Side winner = (resigned == Side.RED) ? Side.BLACK : Side.RED;
+        gameOver = true;
+        clearSelection();
+        WinnerDialog.showWinner(winner == Side.RED ? "ĐỎ" : "ĐEN", mySide == winner);
+        updateButtons();
     }
 
     // Receive a move from server and apply to board+UI
@@ -136,7 +212,11 @@ public class BoardController {
 
         clearSelection();
         if (!gameOver) toggleTurn();
+        updateButtons();
     }
+
+
+
 
     // -------------------- Setup --------------------
 
@@ -573,5 +653,11 @@ public class BoardController {
 
         topSideLabel.setX(centerX - topSideLabel.getLayoutBounds().getWidth() / 2.0);
         topSideLabel.setY(y0 + margin * 0.8);
+    }
+
+    private void updateButtons() {
+        if (resignBtn != null) {
+            resignBtn.setDisable(mySide == null || gameOver);
+        }
     }
 }

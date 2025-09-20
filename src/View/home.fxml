@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+
+    <!-- Header -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: rgba(0,0,0,0.7); -fx-padding: 10;">
+            <ImageView fitHeight="40" fitWidth="40">
+                <Image url="@icon.png" />
+            </ImageView>
+            <Label prefHeight="32.0" prefWidth="210.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #ffcc00;" text="CỜ TƯỚNG ONLINE" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 6;" text="Đăng xuất" />
+           
+        </HBox>
+    </top>
+
+    <!-- Nội dung chính (chức năng game) -->
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30; -fx-background-image: url('@board_bg.jpg'); -fx-background-size: cover;">
+            <Button fx:id="btnQuickPlay"
+                    prefHeight="50" prefWidth="220"
+                    style="-fx-font-size: 16px; -fx-font-weight: bold;
+               -fx-background-color: linear-gradient(to right, #ff4b2b, #ff416c);
+               -fx-text-fill: white; -fx-background-radius: 10;"
+                    text="⚡ Chơi nhanh"
+                    onAction="#playQuick"/>
+
+            <Button onAction="#openRoomList" prefHeight="50" prefWidth="220" style="-fx-font-size: 16px; -fx-font-weight: bold;                            -fx-background-color: linear-gradient(to right, #1e3c72, #2a5298);                            -fx-text-fill: white; -fx-background-radius: 10;" text="🎮 Vào phòng" />
+            <Button onAction="#openCreateRoom" prefHeight="50" prefWidth="220" style="-fx-font-size: 16px; -fx-font-weight: bold;                            -fx-background-color: linear-gradient(to right, #11998e, #38ef7d);                            -fx-text-fill: white; -fx-background-radius: 10;" text="➕ Tạo phòng" />
+            <Button prefHeight="50" prefWidth="220" style="-fx-font-size: 16px; -fx-font-weight: bold;                            -fx-background-color: linear-gradient(to right, #8e2de2, #4a00e0);                            -fx-text-fill: white; -fx-background-radius: 10;" text="🤖 Chơi với máy" />
+            <Button prefHeight="50" prefWidth="220" style="-fx-font-size: 16px; -fx-font-weight: bold;                            -fx-background-color: linear-gradient(to right, #f7971e, #ffd200);                            -fx-text-fill: black; -fx-background-radius: 10;" text="🏆 Bảng xếp hạng" />
+        </VBox>
+    </center>
+
+    <!-- Thông tin người chơi (sidebar trái) -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="10" style="-fx-background-color: rgba(0,0,0,0.7); -fx-padding: 15; -fx-pref-width: 200;">
+            <ImageView fitHeight="100" fitWidth="100">
+                <Image url="@avatar.png" />
+            </ImageView>
+            <Label fx:id="lblUsername" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" text="Người chơi" />
+            <Separator />
+            <Label fx:id="lblTotalGames" style="-fx-text-fill: #cccccc;" text="Số ván: 0" />
+            <Label fx:id="lblWins" style="-fx-text-fill: #cccccc;" text="Thắng: 0" />
+            <Label fx:id="lblDraws" style="-fx-text-fill: #cccccc;" text="Hòa: 0" />
+            <Label fx:id="lblPoints" style="-fx-text-fill: #cccccc;" text="Điểm: 0" />
+            <Label fx:id="lblRank" style="-fx-text-fill: #cccccc;" text="Hạng: 0" />
+        </VBox>
+    </left>
+
+    <!-- Chat (dưới cùng) -->
+    <bottom>
+        <VBox spacing="5" style="-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10;">
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #ffcc00;" text="💬 Chat  Tin tức" />
+            <TextArea fx:id="txtChat" editable="false" prefHeight="100" style="-fx-control-inner-background: #222; -fx-text-fill: white;" wrapText="true" />
+            <HBox spacing="5">
+                <TextField fx:id="txtMessage" prefWidth="439.0" promptText="Nhập tin nhắn..." style="-fx-background-color: #333; -fx-text-fill: white; -fx-prompt-text-fill: gray;" />
+                <Button style="-fx-background-color: #ff416c; -fx-text-fill: white; -fx-background-radius: 6;" text="Gửi" />
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>
