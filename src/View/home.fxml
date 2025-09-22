@@ -14,8 +14,10 @@
             </ImageView>
             <Label prefHeight="32.0" prefWidth="210.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #ffcc00;" text="CỜ TƯỚNG ONLINE" />
             <Pane HBox.hgrow="ALWAYS" />
-            <Button style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 6;" text="Đăng xuất" />
-           
+            <Button fx:id="btnLogout"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 6;"
+                    text="Đăng xuất"
+                    onAction="#logout"/>
         </HBox>
     </top>
 
@@ -59,8 +61,10 @@
             <Label style="-fx-font-weight: bold; -fx-text-fill: #ffcc00;" text="💬 Chat  Tin tức" />
             <TextArea fx:id="txtChat" editable="false" prefHeight="100" style="-fx-control-inner-background: #222; -fx-text-fill: white;" wrapText="true" />
             <HBox spacing="5">
-                <TextField fx:id="txtMessage" prefWidth="439.0" promptText="Nhập tin nhắn..." style="-fx-background-color: #333; -fx-text-fill: white; -fx-prompt-text-fill: gray;" />
-                <Button style="-fx-background-color: #ff416c; -fx-text-fill: white; -fx-background-radius: 6;" text="Gửi" />
+                <TextField fx:id="txtMessage" prefWidth="439.0"
+                           promptText="Nhập tin nhắn... (Chat riêng: /TênNgười Nội dung)"
+                           style="-fx-background-color: #333; -fx-text-fill: white; -fx-prompt-text-fill: gray;" />
+                <Button fx:id="btnSend"  onAction="#onChat" style="-fx-background-color: #ff416c; -fx-text-fill: white; -fx-background-radius: 6;" text="Gửi" />
             </HBox>
         </VBox>
     </bottom>

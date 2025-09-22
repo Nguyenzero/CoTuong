@@ -30,7 +30,7 @@
     <center>
         <StackPane fx:id="formContainer" alignment="CENTER" prefWidth="500">
             <!-- Form Đăng nhập -->
-            <VBox fx:id="loginForm" alignment="CENTER" prefHeight="600.0" prefWidth="483.0" spacing="18" style="-fx-padding: 40;">
+            <VBox fx:id="loginForm" alignment="CENTER" prefHeight="598.0" prefWidth="471.0" spacing="18" style="-fx-padding: 40;">
                 <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="🔑 Đăng nhập" />
                 <TextField fx:id="txtLoginUsername" promptText="Tên đăng nhập" style="-fx-background-radius: 10; -fx-padding: 10;" />
                 <PasswordField fx:id="txtLoginPassword" promptText="Mật khẩu" style="-fx-background-radius: 10; -fx-padding: 10;" />
