@@ -80,7 +80,7 @@ public class GameServer {
                             if (spaceIdx > 1) {
                                 String target = content.substring(1, spaceIdx);
                                 String text = content.substring(spaceIdx + 1);
-                                sendPrivate(target, "PM từ " + currentName + ": " + text);
+                                sendPrivate(target, "Tin nhắn riêng từ " + currentName + ": " + text);
                             } else {
                                 sendPrivate(currentName, "Sai cú pháp! Hãy nhập: /TênNgườiNhận NộiDung");
                             }

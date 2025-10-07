@@ -72,12 +72,6 @@ public class BoardController {
 
     @FXML
     public void initialize() {
-        try {
-            client = new GameClient("localhost", 12345);
-            client.listen(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         chessBoard.getChildren().addAll(boardLayer, piecesLayer, hudLayer);
         hudLayer.getChildren().addAll(topSideLabel, bottomSideLabel);
@@ -108,6 +102,11 @@ public class BoardController {
         chessBoard.widthProperty().addListener((o, a, b) -> layoutAll());
         chessBoard.heightProperty().addListener((o, a, b) -> layoutAll());
         javafx.application.Platform.runLater(this::layoutAll);
+    }
+
+    public void setGameClient(GameClient gameClient) {
+        this.client = gameClient;
+        client.listen(this); // bắt đầu nghe thông điệp cho ván cờ
     }
 
     private void handleExit() {

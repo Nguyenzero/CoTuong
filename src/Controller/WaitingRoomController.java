@@ -69,8 +69,7 @@ public class WaitingRoomController {
                             Platform.runLater(() -> {
                                 statusLabel.setText("Người chơi " + guest + " đã vào phòng. Đang bắt đầu...");
                                 stopPolling();
-                                // TODO: chuyển sang màn chơi thực tế
-                                closeWindow();
+                                openBoard(host, guest); // ✅ mở bàn cờ cho chủ phòng
                             });
                         }
                     } else {
@@ -127,6 +126,26 @@ public class WaitingRoomController {
         }
     }
 
+
+    private void openBoard(String host, String guest) {
+        try {
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/board.fxml"));
+            Parent root = loader.load();
+
+            // Truyền user sang BoardController (chủ phòng là người đang dùng)
+            BoardController boardController = loader.getController();
+            boardController.setCurrentUser(host);
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ván cờ - " + host + " vs " + guest);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // fallback: đóng cửa sổ nếu có lỗi
+            closeWindow();
+        }
+    }
 
     private void closeWindow() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();

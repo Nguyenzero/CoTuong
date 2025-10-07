@@ -88,7 +88,7 @@ public class HomeController {
         try {
             // 👇 tạo client nếu chưa được truyền vào
             if (gameClient == null) {
-                gameClient = new GameClient("127.0.0.1", 12345);
+                gameClient = new GameClient("localhost", 12345);
                 gameClient.setChatListener(this::onChat);
                 gameClient.startListening(); // cần thiết vì constructor không tự start nữa
                 if (currentUser != null && !currentUser.isEmpty()) {
@@ -294,12 +294,14 @@ public class HomeController {
     // Hàm mở bàn cờ
     private void openBoard(String player1, String player2) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Board.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/board.fxml"));
             Parent root = loader.load();
 
             // ✅ Truyền user sang BoardController
             BoardController boardController = loader.getController();
             boardController.setCurrentUser(currentUser);
+
+            boardController.setGameClient(gameClient);
 
             Stage stage = new Stage();
             stage.setTitle("Ván cờ - " + player1 + " vs " + player2);
